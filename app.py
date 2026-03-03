@@ -2,16 +2,21 @@ import streamlit as st
 import anthropic
 import requests
 import json
+import logging
 import os
+import time
+from html import escape
 from datetime import datetime
 from concurrent.futures import ThreadPoolExecutor
 from dotenv import load_dotenv
+
+logger = logging.getLogger(__name__)
 
 load_dotenv()
 
 # --- Page Config ---
 st.set_page_config(
-    page_title="recmd — What Should You Watch?",
+    page_title="recommended: — What Should You Watch?",
     page_icon="🎬",
     layout="centered",
 )
@@ -154,15 +159,16 @@ COUNTRY_OPTIONS = {
 # --- Helper: Build prompt ---
 def build_prompt(mood, genres, time_available, content_type, decade, recent_favorites, preferred_actors, extra_notes):
     genre_text = ", ".join(genres) if "No Preference" not in genres else "any genre"
+    decade_text = ", ".join(decade) if "No preference" not in decade else "any era"
 
-    prompt = f"""You are RECMD, an expert movie and TV show recommendation engine. Based on the user's preferences below, suggest exactly 3 personalized recommendations.
+    prompt = f"""You are recommended:, an expert movie and TV show recommendation engine. Based on the user's preferences below, suggest exactly 3 personalized recommendations.
 
 USER PREFERENCES:
 - Current mood: {mood}
 - Preferred genres: {genre_text}
 - Time available: {time_available}
 - Content type: {content_type}
-- Era preference: {decade}
+- Era preference: {decade_text}
 - Recently enjoyed: {recent_favorites if recent_favorites else "Not specified"}
 - Preferred actors: {preferred_actors if preferred_actors else "No preference"}
 - Additional notes: {extra_notes if extra_notes else "None"}
@@ -291,8 +297,8 @@ def fetch_tmdb_info(title, year, content_type, country_code="US"):
                     result["trailer_url"] = f"https://www.youtube.com/watch?v={video['key']}"
                     break
 
-    except (requests.RequestException, KeyError, IndexError, TypeError):
-        pass
+    except (requests.RequestException, KeyError, IndexError) as e:
+        logger.warning(f"TMDB fetch failed for '{title}' ({year}): {e}")
 
     return result
 
@@ -324,29 +330,31 @@ def render_recommendation_card(rec, tmdb_info, country_name="United States"):
                 )
 
         with col_text:
-            # Title + rating on the same line
-            title_text = rec['title']
+            # Title + rating on the same line (escape untrusted data to prevent XSS)
+            title_text = escape(rec['title'])
             if tmdb_info["tmdb_link"]:
-                title_html = f'<a href="{tmdb_info["tmdb_link"]}" target="_blank" style="color:inherit;text-decoration:none;font-weight:700;">{title_text}</a>'
+                tmdb_link = escape(tmdb_info["tmdb_link"], quote=True)
+                title_html = f'<a href="{tmdb_link}" target="_blank" style="color:inherit;text-decoration:none;font-weight:700;">{title_text}</a>'
             else:
                 title_html = f'<strong>{title_text}</strong>'
 
             rating_html = ""
             if tmdb_info.get("rating"):
-                rating_html = f' <span class="rating-badge">★ {tmdb_info["rating"]}</span>'
+                rating_html = f' <span class="rating-badge">★ {escape(str(tmdb_info["rating"]))}</span>'
 
+            year_text = escape(str(rec["year"]))
             st.markdown(
-                f'{title_html} ({rec["year"]}){rating_html}',
+                f'{title_html} ({year_text}){rating_html}',
                 unsafe_allow_html=True,
             )
-            st.caption(f"{rec['type']}  •  {rec['runtime']}")
+            st.caption(f"{escape(rec['type'])}  •  {escape(rec['runtime'])}")
             st.markdown(rec["why_it_fits"])
             st.markdown(f"*{rec['vibe_check']}*")
 
-            # Streaming providers
+            # Streaming providers (escape provider names from TMDB)
             if tmdb_info["providers"]:
                 pills_html = "".join(
-                    f'<span class="provider-pill">{p}</span>' for p in tmdb_info["providers"]
+                    f'<span class="provider-pill">{escape(p)}</span>' for p in tmdb_info["providers"]
                 )
                 st.markdown(
                     f'<div class="provider-section"><strong>Where to watch:</strong><br>{pills_html}</div>',
@@ -354,20 +362,21 @@ def render_recommendation_card(rec, tmdb_info, country_name="United States"):
                 )
             else:
                 st.markdown(
-                    f'<div class="no-providers">Not available for streaming in {country_name}</div>',
+                    f'<div class="no-providers">Not available for streaming in {escape(country_name)}</div>',
                     unsafe_allow_html=True,
                 )
 
-            # Trailer link
-            if tmdb_info.get("trailer_url"):
+            # Trailer link (only allow YouTube URLs to prevent javascript: injection)
+            trailer_url = tmdb_info.get("trailer_url", "")
+            if trailer_url and trailer_url.startswith("https://www.youtube.com/"):
                 st.markdown(
-                    f'<div class="trailer-link"><a href="{tmdb_info["trailer_url"]}" target="_blank">▶ Watch Trailer</a></div>',
+                    f'<div class="trailer-link"><a href="{escape(trailer_url, quote=True)}" target="_blank">▶ Watch Trailer</a></div>',
                     unsafe_allow_html=True,
                 )
 
 
 # --- App UI ---
-st.markdown("# 🎬 recmd")
+st.markdown("# 🎬 recommended:")
 st.markdown("### Tell us your vibe. We'll tell you what to watch.")
 st.divider()
 
@@ -382,6 +391,8 @@ if "tmdb_infos" not in st.session_state:
     st.session_state.tmdb_infos = []
 if "country_name" not in st.session_state:
     st.session_state.country_name = "United States"
+if "last_request_time" not in st.session_state:
+    st.session_state.last_request_time = 0.0
 
 # --- Questionnaire ---
 with st.form("preferences_form"):
@@ -417,9 +428,10 @@ with st.form("preferences_form"):
         )
     with col2:
         st.subheader("Era preference?")
-        decade = st.radio(
-            "Decade:",
+        decade = st.multiselect(
+            "Select one or more (or 'No preference'):",
             DECADE_OPTIONS,
+            default=["No preference"],
             label_visibility="collapsed",
         )
 
@@ -428,6 +440,7 @@ with st.form("preferences_form"):
         "Name some movies or TV shows you've enjoyed lately:",
         label_visibility="collapsed",
         placeholder="E.g., The Bear, Knives Out, Severance...",
+        max_chars=500,
     )
 
     st.subheader("Any actors you'd love to see?")
@@ -435,6 +448,7 @@ with st.form("preferences_form"):
         "Type actor names separated by commas:",
         label_visibility="collapsed",
         placeholder="Optional — e.g., Florence Pugh, Pedro Pascal, Viola Davis",
+        max_chars=200,
     )
 
     st.subheader("Anything else we should know?")
@@ -442,6 +456,7 @@ with st.form("preferences_form"):
         "E.g., 'I just watched Interstellar and loved it' or 'nothing too violent'",
         label_visibility="collapsed",
         placeholder="Optional — but helps us dial it in...",
+        max_chars=500,
     )
 
     st.subheader("Where are you watching from?")
@@ -455,14 +470,19 @@ with st.form("preferences_form"):
     submitted = st.form_submit_button("🎯 Get My Recommendations", use_container_width=True)
 
 # --- Handle submission ---
+REQUEST_COOLDOWN_SECONDS = 10
+
 if submitted:
     if not os.getenv("ANTHROPIC_API_KEY"):
         st.error("API key not found. Make sure your `.env` file has `ANTHROPIC_API_KEY` set.")
+    elif time.time() - st.session_state.last_request_time < REQUEST_COOLDOWN_SECONDS:
+        st.warning("Please wait a few seconds between requests.")
     else:
         country_code = COUNTRY_OPTIONS[country_name]
         prompt = build_prompt(mood, genres, time_available, content_type, decade, recent_favorites, preferred_actors, extra_notes)
         with st.spinner("Finding the perfect picks for you..."):
             try:
+                st.session_state.last_request_time = time.time()
                 result = get_recommendations(prompt)
                 recs = result.get("recommendations", [])
                 tmdb_infos = fetch_all_tmdb_info(recs, country_code)
@@ -486,8 +506,12 @@ if submitted:
                 st.session_state.last_genres = list(genres)
                 st.session_state.last_timestamp = datetime.now().strftime("%H:%M")
                 st.session_state.submitted = True
-            except (anthropic.APIError, json.JSONDecodeError) as e:
-                st.error(f"Something went wrong: {e}")
+            except anthropic.APIError as e:
+                logger.error(f"Anthropic API error: {e}")
+                st.error("Our recommendation engine is temporarily unavailable. Please try again.")
+            except json.JSONDecodeError as e:
+                logger.error(f"JSON decode error: {e}")
+                st.error("We received an unexpected response. Please try again.")
 
 # --- Display results ---
 if st.session_state.recommendations and isinstance(st.session_state.recommendations, dict):
@@ -509,7 +533,7 @@ if st.session_state.recommendations and isinstance(st.session_state.recommendati
 
     # --- Download button ---
     def build_download_text(recs, tmdb_infos, country_name):
-        lines = ["RECMD — Your Recommendations\n", "=" * 40 + "\n"]
+        lines = ["recommended: — Your Recommendations\n", "=" * 40 + "\n"]
         for i, rec in enumerate(recs):
             info = tmdb_infos[i] if i < len(tmdb_infos) else {"providers": [], "rating": None, "trailer_url": None}
             rating_str = f"  •  ★ {info['rating']}/10" if info.get("rating") else ""
@@ -529,7 +553,7 @@ if st.session_state.recommendations and isinstance(st.session_state.recommendati
     st.download_button(
         label="Save Recommendations",
         data=build_download_text(recs, tmdb_infos, st.session_state.country_name),
-        file_name="recmd_recommendations.txt",
+        file_name="recommended_picks.txt",
         mime="text/plain",
         use_container_width=True,
     )
@@ -550,4 +574,4 @@ if st.session_state.history:
 
 # --- Footer ---
 st.divider()
-st.caption("recmd v0.1 — Built with Streamlit & Claude | © 2026")
+st.caption("recommended: v0.1 — Built with Streamlit & Claude | © 2026")
