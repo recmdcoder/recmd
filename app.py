@@ -572,6 +572,47 @@ if st.session_state.history:
                 st.markdown(f"- {rec['title']} ({rec['year']})")
             st.divider()
 
+# --- Email Capture ---
+st.divider()
+if "email_submitted" not in st.session_state:
+    st.session_state.email_submitted = False
+
+if st.session_state.email_submitted:
+    st.success("You're on the list! We'll let you know when something new drops.")
+else:
+    st.subheader("Stay in the loop")
+    st.markdown("Get notified when we launch new features and the big redesign.")
+    with st.form("email_form"):
+        email = st.text_input(
+            "Your email:",
+            label_visibility="collapsed",
+            placeholder="you@example.com",
+            max_chars=254,
+        )
+        email_submitted = st.form_submit_button("Notify Me", use_container_width=True)
+
+    if email_submitted:
+        formspree_url = os.getenv("FORMSPREE_ENDPOINT")
+        if not formspree_url:
+            st.error("Email capture is not configured yet.")
+        elif not email or "@" not in email:
+            st.warning("Please enter a valid email address.")
+        else:
+            try:
+                resp = requests.post(
+                    formspree_url,
+                    json={"email": email},
+                    headers={"Accept": "application/json"},
+                    timeout=5,
+                )
+                if resp.ok:
+                    st.session_state.email_submitted = True
+                    st.rerun()
+                else:
+                    st.error("Something went wrong. Please try again.")
+            except requests.RequestException:
+                st.error("Could not submit. Please try again later.")
+
 # --- Footer ---
 st.divider()
 st.caption("recommended: v0.1 — Built with Streamlit & Claude | © 2026")
