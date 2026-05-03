@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>recommended: — For You</title>
+<link rel="stylesheet" href="_shared.css">
+<style>
+  .for-you-header {
+    padding: 30px 56px 20px;
+  }
+  .for-you-header h2 {
+    font-size: 76px;
+    font-weight: 800;
+    letter-spacing: -1px;
+  }
+  .for-you-header .greeting {
+    font-size: 32px;
+    color: rgba(255, 255, 255, 0.65);
+    margin-top: 10px;
+  }
+
+  .search-bar {
+    margin: 24px 56px;
+    height: 96px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    display: flex;
+    align-items: center;
+    padding: 0 36px;
+    color: rgba(255, 255, 255, 0.55);
+    font-size: 32px;
+    gap: 20px;
+  }
+
+  .section-title {
+    padding: 22px 56px 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .section-title h3 {
+    font-size: 44px;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .section-title .star { color: #FF6B26; font-size: 38px; }
+  .section-title .see-all { color: #FF6B26; font-size: 32px; font-weight: 600; }
+
+  .row {
+    display: flex;
+    gap: 24px;
+    padding: 0 56px 18px;
+    overflow: hidden;
+  }
+
+  .picked .poster {
+    width: 320px;
+    height: 460px;
+  }
+  .picked .meta {
+    margin-top: 16px;
+    font-size: 32px;
+    font-weight: 700;
+  }
+  .picked .info {
+    font-size: 26px;
+    color: rgba(255, 255, 255, 0.6);
+    margin-top: 6px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .picked .info .star { color: #FFD93B; }
+
+  .saved .poster {
+    width: 280px;
+    height: 400px;
+  }
+  .saved .label {
+    margin-top: 14px;
+    font-size: 28px;
+    font-weight: 700;
+  }
+
+  .picked-card {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .new-recs {
+    padding: 30px 56px 0;
+  }
+  .new-recs h3 {
+    font-size: 44px;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .new-recs .plus { color: #FF6B26; font-size: 40px; }
+
+  .pill-row {
+    display: flex;
+    gap: 28px;
+    margin-top: 26px;
+    padding-bottom: 36px;
+  }
+  .circle-btn {
+    width: 130px; height: 130px;
+    border-radius: 50%;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    color: #fff;
+    font-size: 50px;
+  }
+  .circle-btn.orange { background: linear-gradient(140deg, #FF8A4A, #C7501A); }
+  .circle-btn.blue   { background: linear-gradient(140deg, #4090C0, #1E5A85); }
+  .circle-label {
+    text-align: center;
+    margin-top: 16px;
+    font-size: 28px;
+    font-weight: 600;
+  }
+
+  /* posters */
+  .p-china { background: linear-gradient(160deg, #d6b242, #2a1f08); }
+  .p-mom   { background: linear-gradient(160deg, #5e2a1a, #100808); }
+  .p-mind  { background: linear-gradient(160deg, #d8d8d8, #2a2a2a); color: #111; }
+  .p-mind .title { color: #111; text-shadow: none; }
+  .p-sun   { background: linear-gradient(160deg, #c54818, #1a0a08); }
+  .p-allis { background: linear-gradient(160deg, #2a4a6a, #08101a); }
+  .p-mex   { background: linear-gradient(160deg, #b89060, #3a2818); }
+</style>
+</head>
+<body>
+<div class="frame">
+  <div class="marketing">
+    <div class="eyebrow">For you</div>
+    <h1>Picks that <span class="accent">actually</span> hit.</h1>
+    <p>AI-powered suggestions that learn what you love — and what you don't.</p>
+  </div>
+
+  <div class="phone-stage">
+    <div class="screen">
+      <div class="status-bar">
+        <span>9:41</span>
+        <span class="icons"><span class="signal">●●●●</span><span class="wifi">≋</span><span class="battery">100</span></span>
+      </div>
+
+      <div class="for-you-header">
+        <h2>For You</h2>
+        <div class="greeting">Good Afternoon</div>
+      </div>
+
+      <div class="search-bar">
+        <span>⌕</span><span>Search movies, shows, and friends</span>
+      </div>
+
+      <div class="section-title">
+        <h3><span class="star">✦</span> Picked for You</h3>
+      </div>
+      <div class="row picked">
+        <div class="picked-card">
+          <div class="poster p-china"><div class="title">Chinatown</div></div>
+          <div class="meta">Chinatown</div>
+          <div class="info">Movie <span class="star">★</span> 7.9</div>
+        </div>
+        <div class="picked-card">
+          <div class="poster p-mom"><div class="title">Memories of Murder</div></div>
+          <div class="meta">Memories of Murder</div>
+          <div class="info">Movie <span class="star">★</span> 8.1</div>
+        </div>
+        <div class="picked-card">
+          <div class="poster p-mind"><div class="title">Mindhunter</div></div>
+          <div class="meta">Mindhunter</div>
+          <div class="info">TV <span class="star">★</span> 8.1</div>
+        </div>
+      </div>
+
+      <div class="section-title">
+        <h3>🔖 Your Saved</h3>
+        <div class="see-all">See All ▸</div>
+      </div>
+      <div class="row saved">
+        <div class="picked-card">
+          <div class="poster p-sun"><div class="title">Sunshine</div></div>
+          <div class="label">Sunshine</div>
+        </div>
+        <div class="picked-card">
+          <div class="poster p-allis"><div class="title">All Is Lost</div></div>
+          <div class="label">All Is Lost</div>
+        </div>
+        <div class="picked-card">
+          <div class="poster p-mex"><div class="title">The Mexican</div></div>
+          <div class="label">The Mexican</div>
+        </div>
+      </div>
+
+      <div class="new-recs">
+        <h3><span class="plus">⊕</span> Get New Recommendations</h3>
+        <div class="pill-row">
+          <div>
+            <div class="circle-btn orange">🎞</div>
+            <div class="circle-label">Movies</div>
+          </div>
+          <div>
+            <div class="circle-btn blue">▶</div>
+            <div class="circle-label">TV Shows</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tab-bar">
+        <div class="tab"><div class="icon">⌂</div><div class="label">Home</div></div>
+        <div class="tab active"><div class="icon">◔</div><div class="label">For You</div></div>
+        <div class="tab"><div class="icon">⌑</div><div class="label">Saved</div></div>
+        <div class="tab"><div class="icon">➤</div><div class="label">Messages</div></div>
+        <div class="tab"><div class="icon">◉</div><div class="label">Profile</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

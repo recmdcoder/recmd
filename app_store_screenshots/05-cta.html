@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>recommended: — Get the App</title>
+<link rel="stylesheet" href="_shared.css">
+<style>
+  .cta-frame {
+    position: relative;
+    width: 1242px;
+    height: 2688px;
+    background:
+      radial-gradient(circle at 50% 30%, rgba(255, 107, 38, 0.55) 0%, rgba(255, 107, 38, 0) 55%),
+      radial-gradient(circle at 80% 90%, rgba(64, 130, 180, 0.45) 0%, rgba(64, 130, 180, 0) 50%),
+      #0d0d0d;
+    overflow: hidden;
+  }
+
+  .cta-marketing {
+    position: relative;
+    padding: 200px 90px 60px;
+    text-align: center;
+    z-index: 5;
+  }
+
+  .cta-marketing .eyebrow {
+    display: inline-block;
+    font-size: 38px;
+    font-weight: 600;
+    letter-spacing: 6px;
+    text-transform: uppercase;
+    color: #FF6B26;
+    margin-bottom: 36px;
+    text-shadow: 0 0 24px rgba(255, 107, 38, 0.5);
+  }
+
+  .cta-marketing h1 {
+    font-size: 150px;
+    line-height: 0.98;
+    font-weight: 900;
+    letter-spacing: -4px;
+    margin-bottom: 50px;
+    color: #ffffff;
+  }
+  .cta-marketing h1 .accent {
+    color: #FF6B26;
+    text-shadow: 0 0 50px rgba(255, 107, 38, 0.5);
+  }
+
+  .cta-marketing p {
+    font-size: 50px;
+    line-height: 1.3;
+    color: rgba(255, 255, 255, 0.8);
+    max-width: 1000px;
+    margin: 0 auto 80px;
+  }
+
+  .download-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 28px;
+    padding: 50px 100px;
+    background: linear-gradient(140deg, #FF8A4A, #C7501A);
+    color: #fff;
+    font-size: 60px;
+    font-weight: 800;
+    border-radius: 999px;
+    box-shadow: 0 24px 60px rgba(255, 107, 38, 0.5);
+    margin-bottom: 60px;
+  }
+  .download-btn .arrow { font-size: 60px; }
+
+  .features {
+    display: flex;
+    justify-content: center;
+    gap: 70px;
+    margin-top: 60px;
+    flex-wrap: wrap;
+    padding: 0 90px;
+  }
+  .feature {
+    text-align: center;
+    width: 290px;
+  }
+  .feature .icon {
+    width: 130px; height: 130px;
+    margin: 0 auto 30px;
+    border-radius: 36px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 60px;
+    color: #FF6B26;
+  }
+  .feature .label {
+    font-size: 34px;
+    font-weight: 700;
+    margin-bottom: 14px;
+  }
+  .feature .desc {
+    font-size: 26px;
+    line-height: 1.35;
+    color: rgba(255, 255, 255, 0.6);
+  }
+
+  .footer {
+    position: absolute;
+    left: 0; right: 0;
+    bottom: 90px;
+    text-align: center;
+  }
+
+  .logo-badge {
+    font-size: 80px;
+    font-weight: 900;
+    letter-spacing: -2px;
+    margin-bottom: 28px;
+  }
+  .logo-badge .glow {
+    color: #FF6B26;
+    text-shadow: 0 0 30px rgba(255, 107, 38, 0.75);
+  }
+  .footer-tag {
+    font-size: 30px;
+    color: rgba(255,255,255,0.5);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+
+  /* Floating posters */
+  .floater {
+    position: absolute;
+    width: 220px;
+    height: 320px;
+    border-radius: 24px;
+    box-shadow: 0 30px 80px rgba(0,0,0,0.55);
+    overflow: hidden;
+  }
+  .floater .title {
+    position: absolute;
+    bottom: 18px;
+    left: 18px;
+    right: 18px;
+    font-size: 22px;
+    font-weight: 800;
+    text-transform: uppercase;
+    color: #fff;
+    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+    z-index: 2;
+  }
+  .floater::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(0,0,0,0) 55%, rgba(0,0,0,0.85) 100%);
+  }
+
+  .f1 { top: 1820px; left:  60px; transform: rotate(-12deg); background: linear-gradient(160deg, #d6b242, #2a1f08); }
+  .f2 { top: 1880px; left: 320px; transform: rotate( -4deg); background: linear-gradient(160deg, #c25a35, #3a1810); }
+  .f3 { top: 1880px; right: 320px; transform: rotate(  4deg); background: linear-gradient(160deg, #2a4a3a, #08180a); }
+  .f4 { top: 1820px; right:  60px; transform: rotate( 12deg); background: linear-gradient(160deg, #c01818, #1a0808); }
+</style>
+</head>
+<body>
+<div class="cta-frame">
+  <div class="cta-marketing">
+    <div class="eyebrow">recommended:</div>
+    <h1>Stop scrolling.<br>Start <span class="accent">watching.</span></h1>
+    <p>Personalized picks. Real recommendations from friends. Your next favorite is one tap away.</p>
+
+    <div class="download-btn">
+       Download Free <span class="arrow">→</span>
+    </div>
+  </div>
+
+  <div class="features">
+    <div class="feature">
+      <div class="icon">✦</div>
+      <div class="label">AI Picks</div>
+      <div class="desc">Tailored to your taste, not the algorithm</div>
+    </div>
+    <div class="feature">
+      <div class="icon">♥</div>
+      <div class="label">Friend Recs</div>
+      <div class="desc">From people who actually know you</div>
+    </div>
+    <div class="feature">
+      <div class="icon">▶</div>
+      <div class="label">Movies & TV</div>
+      <div class="desc">Across every streaming service</div>
+    </div>
+  </div>
+
+  <div class="floater f1"><div class="title">Chinatown</div></div>
+  <div class="floater f2"><div class="title">One Battle After Another</div></div>
+  <div class="floater f3"><div class="title">The White Lotus</div></div>
+  <div class="floater f4"><div class="title">Stranger Things</div></div>
+
+  <div class="footer">
+    <div class="logo-badge">:reco<span class="glow">mmended</span></div>
+    <div class="footer-tag">Available on the App Store</div>
+  </div>
+</div>
+</body>
+</html>

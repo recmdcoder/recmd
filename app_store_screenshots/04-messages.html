@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>recommended: — Messages</title>
+<link rel="stylesheet" href="_shared.css">
+<style>
+  .msg-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 30px 56px 30px;
+  }
+  .msg-header h2 {
+    font-size: 64px;
+    font-weight: 800;
+  }
+  .bell {
+    color: #FF6B26;
+    font-size: 50px;
+  }
+
+  .msg-row {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    padding: 30px 56px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+
+  .msg-avatar {
+    width: 110px; height: 110px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    background: #2a2a2a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 40px;
+    font-weight: 700;
+    overflow: hidden;
+    position: relative;
+  }
+  .msg-avatar.flowers {
+    background:
+      radial-gradient(circle at 30% 40%, #f5d040 8%, transparent 9%),
+      radial-gradient(circle at 70% 60%, #f5d040 8%, transparent 9%),
+      radial-gradient(circle at 50% 25%, #f5d040 6%, transparent 7%),
+      linear-gradient(160deg, #4a6a3a, #1a2a1a);
+  }
+  .msg-avatar.painting {
+    background: linear-gradient(135deg, #d8a060, #6a3a20 50%, #2a1810);
+  }
+
+  .msg-content {
+    flex: 1;
+    min-width: 0;
+  }
+  .msg-content .name-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  .msg-content .name {
+    font-size: 38px;
+    font-weight: 700;
+    filter: blur(10px);
+    color: rgba(255,255,255,0.9);
+    background: rgba(255,255,255,0.6);
+    border-radius: 12px;
+    padding: 0 18px;
+  }
+  .msg-content .time {
+    font-size: 28px;
+    color: rgba(255,255,255,0.55);
+  }
+  .msg-content .preview {
+    font-size: 32px;
+    color: rgba(255,255,255,0.65);
+  }
+
+  .compose-fab {
+    position: absolute;
+    right: 60px;
+    bottom: 230px;
+    width: 130px; height: 130px;
+    border-radius: 50%;
+    background: linear-gradient(140deg, #FF8A4A, #C7501A);
+    box-shadow: 0 16px 40px rgba(255, 107, 38, 0.5);
+    display: flex; align-items: center; justify-content: center;
+    color: #fff;
+    font-size: 56px;
+  }
+</style>
+</head>
+<body>
+<div class="frame">
+  <div class="marketing">
+    <div class="eyebrow">Together</div>
+    <h1>Share what's <span class="accent">worth</span> watching.</h1>
+    <p>Send picks to friends — and find out what they're loving right now.</p>
+  </div>
+
+  <div class="phone-stage">
+    <div class="screen">
+      <div class="status-bar">
+        <span>9:41</span>
+        <span class="icons"><span class="signal">●●●●</span><span class="wifi">≋</span><span class="battery">100</span></span>
+      </div>
+
+      <div class="msg-header">
+        <h2>Messages</h2>
+        <div class="bell">🔔</div>
+      </div>
+
+      <div class="msg-row">
+        <div class="msg-avatar flowers"></div>
+        <div class="msg-content">
+          <div class="name-row">
+            <div class="name">█████</div>
+            <div class="time">4d</div>
+          </div>
+          <div class="preview">Recommended "Star Wars"</div>
+        </div>
+      </div>
+
+      <div class="msg-row">
+        <div class="msg-avatar" style="background: linear-gradient(140deg, #6a3030, #2a1010);">P</div>
+        <div class="msg-content">
+          <div class="name-row">
+            <div class="name">█████</div>
+            <div class="time">Apr 20</div>
+          </div>
+          <div class="preview">You: Recommended "Ad Astra"</div>
+        </div>
+      </div>
+
+      <div class="msg-row">
+        <div class="msg-avatar painting"></div>
+        <div class="msg-content">
+          <div class="name-row">
+            <div class="name">██████</div>
+            <div class="time">Apr 20</div>
+          </div>
+          <div class="preview">You: Recommended "Ad Astra"</div>
+        </div>
+      </div>
+
+      <div class="msg-row">
+        <div class="msg-avatar" style="background: linear-gradient(140deg, #305060, #102030);">M</div>
+        <div class="msg-content">
+          <div class="name-row">
+            <div class="name">████</div>
+            <div class="time">Apr 18</div>
+          </div>
+          <div class="preview">You: Recommended "Mindhunter"</div>
+        </div>
+      </div>
+
+      <div class="msg-row">
+        <div class="msg-avatar" style="background: linear-gradient(140deg, #604030, #2a1810);">A</div>
+        <div class="msg-content">
+          <div class="name-row">
+            <div class="name">█████</div>
+            <div class="time">Apr 12</div>
+          </div>
+          <div class="preview">Recommended "The White Lotus"</div>
+        </div>
+      </div>
+
+      <div class="compose-fab">✎</div>
+
+      <div class="tab-bar">
+        <div class="tab"><div class="icon">⌂</div><div class="label">Home</div></div>
+        <div class="tab"><div class="icon">◔</div><div class="label">For You</div></div>
+        <div class="tab"><div class="icon">⌑</div><div class="label">Saved</div></div>
+        <div class="tab active"><div class="icon">➤</div><div class="label">Messages</div></div>
+        <div class="tab"><div class="icon">◉</div><div class="label">Profile</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

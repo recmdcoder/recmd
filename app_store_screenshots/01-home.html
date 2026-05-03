@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>recommended: — Discover</title>
+<link rel="stylesheet" href="_shared.css">
+<style>
+  .category-card {
+    margin: 0 56px 28px;
+    height: 360px;
+    border-radius: 36px;
+    background: rgba(35, 35, 35, 0.55);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    position: relative;
+    overflow: hidden;
+    backdrop-filter: blur(8px);
+  }
+
+  .stack {
+    position: absolute;
+    left: 30px;
+    top: 30px;
+    display: flex;
+  }
+
+  .stack .poster {
+    width: 220px;
+    height: 300px;
+    border-radius: 22px;
+    margin-left: -60px;
+    border: 3px solid rgba(0, 0, 0, 0.3);
+  }
+  .stack .poster:first-child { margin-left: 0; }
+
+  .pill {
+    position: absolute;
+    right: 38px;
+    bottom: 36px;
+    background: rgba(50, 50, 50, 0.85);
+    border-radius: 999px;
+    padding: 18px 38px;
+    font-size: 30px;
+    font-weight: 600;
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .icon-pill {
+    position: absolute;
+    right: 50px;
+    width: 78px;
+    height: 78px;
+    background: rgba(20, 20, 20, 0.85);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 36px;
+  }
+
+  .icon-pill.movies { top: 40px; }
+  .icon-pill.tv     { top: 40px; }
+  .icon-pill.both-1 { top: 40px; }
+  .icon-pill.both-2 { top: 130px; }
+
+  /* poster colors */
+  .p-oppen { background: linear-gradient(160deg, #d97039, #4a2818); }
+  .p-obaa  { background: linear-gradient(160deg, #c25a35, #3a1810); }
+  .p-knives{ background: linear-gradient(160deg, #d4a73e, #4a3010); }
+  .p-sw    { background: linear-gradient(160deg, #2a2a4a, #08081a); }
+
+  .p-bb    { background: linear-gradient(160deg, #b89030, #2a2008); }
+  .p-wlot  { background: linear-gradient(160deg, #2a4a3a, #08180a); }
+  .p-suc   { background: linear-gradient(160deg, #1a1a1a, #4a4a4a); }
+
+  .p-dune  { background: linear-gradient(160deg, #c98a3a, #2a1808); }
+  .p-stra  { background: linear-gradient(160deg, #c01818, #1a0808); }
+  .p-and   { background: linear-gradient(160deg, #4a2818, #181008); }
+  .p-whi   { background: linear-gradient(160deg, #c01010, #1a0808); }
+</style>
+</head>
+<body>
+<div class="frame">
+  <div class="marketing">
+    <div class="eyebrow">recommended:</div>
+    <h1>Find your next<br><span class="accent">favorite</span> film.</h1>
+    <p>Personalized movie & TV picks, powered by AI and the friends who know your taste.</p>
+  </div>
+
+  <div class="phone-stage">
+    <div class="screen">
+      <div class="status-bar">
+        <span>9:41</span>
+        <span class="icons"><span class="signal">●●●●</span><span class="wifi">≋</span><span class="battery">100</span></span>
+      </div>
+
+      <div class="logo">:reco<span class="glow">mmended</span></div>
+      <div style="padding: 0 56px 36px; color: rgba(255,255,255,0.6); font-size: 30px;">Tap a category for personalized recommendations</div>
+
+      <!-- Movies -->
+      <div class="category-card">
+        <div class="stack">
+          <div class="poster p-oppen"><div class="title">Oppenheimer</div></div>
+          <div class="poster p-obaa"><div class="title">One Battle After Another</div></div>
+          <div class="poster p-sw"><div class="title">Star Wars</div></div>
+          <div class="poster p-knives"><div class="title">Knives Out</div></div>
+        </div>
+        <div class="icon-pill movies">🎞</div>
+        <div class="pill">Movies</div>
+      </div>
+
+      <!-- TV -->
+      <div class="category-card">
+        <div class="stack">
+          <div class="poster p-bb"><div class="title">Breaking Bad</div></div>
+          <div class="poster p-wlot"><div class="title">The White Lotus</div></div>
+          <div class="poster p-suc"><div class="title">Succession</div></div>
+          <div class="poster p-bb" style="opacity:.85;"><div class="title">The Office</div></div>
+        </div>
+        <div class="icon-pill tv">▶</div>
+        <div class="pill">TV Shows</div>
+      </div>
+
+      <!-- Both -->
+      <div class="category-card">
+        <div class="stack">
+          <div class="poster p-dune"><div class="title">Dune</div></div>
+          <div class="poster p-stra"><div class="title">Stranger Things</div></div>
+          <div class="poster p-and"><div class="title">Andor</div></div>
+          <div class="poster p-whi"><div class="title">Whiplash</div></div>
+        </div>
+        <div class="icon-pill both-1">🎞</div>
+        <div class="icon-pill both-2">▶</div>
+        <div class="pill">Movies & TV</div>
+      </div>
+
+      <div class="tab-bar">
+        <div class="tab active"><div class="icon">⌂</div><div class="label">Home</div></div>
+        <div class="tab"><div class="icon">◔</div><div class="label">For You</div></div>
+        <div class="tab"><div class="icon">⌑</div><div class="label">Saved</div></div>
+        <div class="tab"><div class="icon">➤</div><div class="label">Messages</div></div>
+        <div class="tab"><div class="icon">◉</div><div class="label">Profile</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

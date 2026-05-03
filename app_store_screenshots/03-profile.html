@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>recommended: — Profile</title>
+<link rel="stylesheet" href="_shared.css">
+<style>
+  .profile-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 30px 56px 18px;
+  }
+  .profile-header h2 {
+    font-size: 64px;
+    font-weight: 800;
+  }
+  .gear {
+    width: 80px; height: 80px;
+    border-radius: 50%;
+    border: 2px solid rgba(255,255,255,0.4);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 38px;
+  }
+
+  .avatar {
+    width: 250px; height: 250px;
+    border-radius: 50%;
+    margin: 18px auto 28px;
+    background: linear-gradient(140deg, #6a4a32, #2a1a10);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 110px;
+    color: rgba(255,255,255,0.3);
+    border: 4px solid rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(40px);
+    overflow: hidden;
+    position: relative;
+  }
+  .avatar::after {
+    content: "";
+    position: absolute; inset: 0;
+    backdrop-filter: blur(20px);
+    background: rgba(70, 50, 35, 0.55);
+  }
+
+  .name-block {
+    text-align: center;
+    margin-bottom: 36px;
+  }
+  .name-block .name {
+    font-size: 64px;
+    font-weight: 800;
+    letter-spacing: -1px;
+    filter: blur(14px);
+    background: rgba(255, 255, 255, 0.85);
+    color: rgba(255,255,255,0.85);
+    display: inline-block;
+    padding: 0 30px;
+    border-radius: 20px;
+  }
+  .name-block .handle {
+    margin-top: 14px;
+    font-size: 32px;
+    color: rgba(255, 255, 255, 0.55);
+    filter: blur(6px);
+    display: inline-block;
+    padding: 0 30px;
+  }
+  .name-block .badge {
+    margin-top: 16px;
+    font-size: 30px;
+    color: rgba(255, 255, 255, 0.85);
+    font-weight: 600;
+  }
+  .stats {
+    display: flex;
+    justify-content: center;
+    gap: 70px;
+    margin: 30px 0 50px;
+    font-size: 36px;
+  }
+  .stats .num { font-weight: 800; }
+  .stats .lbl { color: rgba(255,255,255,0.6); margin-left: 10px; font-weight: 500; }
+
+  .section-title {
+    padding: 0 56px 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .section-title h3 {
+    font-size: 44px;
+    font-weight: 800;
+  }
+  .section-title .share {
+    color: #FF6B26;
+    font-size: 38px;
+  }
+
+  .top-row {
+    display: flex;
+    gap: 28px;
+    padding: 0 56px 36px;
+  }
+
+  .top-card {
+    flex-shrink: 0;
+    width: 270px;
+  }
+  .top-card .poster {
+    width: 270px;
+    height: 380px;
+    position: relative;
+  }
+  .top-card .x {
+    position: absolute;
+    top: -18px;
+    right: -18px;
+    width: 60px; height: 60px;
+    background: #FF3030;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    color: #fff;
+    font-weight: 800;
+    font-size: 32px;
+    z-index: 5;
+    border: 4px solid #181818;
+  }
+  .top-card .label {
+    margin-top: 18px;
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 1.15;
+  }
+
+  .saved-section h3 { font-size: 44px; font-weight: 800; }
+  .saved-section .show-all { color: #FF6B26; font-size: 32px; font-weight: 600; }
+
+  .saved-row {
+    display: flex;
+    gap: 60px;
+    padding: 0 56px 12px;
+    margin-top: 26px;
+  }
+  .saved-circle {
+    text-align: center;
+  }
+  .saved-circle .circle {
+    width: 170px; height: 170px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    color: #fff;
+    font-size: 70px;
+  }
+  .saved-circle.movies .circle { background: linear-gradient(140deg, #FF8A4A, #C7501A); }
+  .saved-circle.tv     .circle { background: linear-gradient(140deg, #4090C0, #1E5A85); }
+  .saved-circle .lbl { margin-top: 18px; font-size: 30px; font-weight: 600; }
+
+  /* posters */
+  .p-obaa  { background: linear-gradient(160deg, #c25a35, #3a1810); }
+  .p-fer   { background: linear-gradient(160deg, #a32028, #1a0a08); }
+  .p-daze  { background: linear-gradient(160deg, #4090C0, #205070); }
+  .p-mad   { background: linear-gradient(160deg, #7a1018, #2a0808); }
+</style>
+</head>
+<body>
+<div class="frame">
+  <div class="marketing">
+    <div class="eyebrow">Your taste</div>
+    <h1>Curate your <span class="accent">top picks.</span></h1>
+    <p>Build a profile that shows the world exactly what you love.</p>
+  </div>
+
+  <div class="phone-stage">
+    <div class="screen">
+      <div class="status-bar">
+        <span>9:41</span>
+        <span class="icons"><span class="signal">●●●●</span><span class="wifi">≋</span><span class="battery">100</span></span>
+      </div>
+
+      <div class="profile-header">
+        <h2>Profile</h2>
+        <div class="gear">⚙</div>
+      </div>
+
+      <div class="avatar">◯</div>
+
+      <div class="name-block">
+        <div class="name">█████████</div><br>
+        <div class="handle">@████████</div>
+        <div class="badge">Recommended</div>
+      </div>
+
+      <div class="stats">
+        <span><span class="num">128</span><span class="lbl">Followers</span></span>
+        <span><span class="num">94</span><span class="lbl">Following</span></span>
+      </div>
+
+      <div class="section-title">
+        <h3>My Top Recommendations</h3>
+        <div class="share">⤴</div>
+      </div>
+
+      <div class="top-row">
+        <div class="top-card">
+          <div class="poster p-obaa">
+            <div class="x">×</div>
+            <div class="title">One Battle After Another</div>
+          </div>
+          <div class="label">One Battle After Another</div>
+        </div>
+        <div class="top-card">
+          <div class="poster p-fer">
+            <div class="x">×</div>
+            <div class="title">Ferris Bueller's Day Off</div>
+          </div>
+          <div class="label">Ferris Bueller's Day Off</div>
+        </div>
+        <div class="top-card">
+          <div class="poster p-daze">
+            <div class="x">×</div>
+            <div class="title">Dazed and Confused</div>
+          </div>
+          <div class="label">Dazed and Confused</div>
+        </div>
+      </div>
+
+      <div class="section-title saved-section">
+        <h3>Saved</h3>
+        <div class="show-all">Show all</div>
+      </div>
+      <div class="saved-row">
+        <div class="saved-circle movies">
+          <div class="circle">🎞</div>
+          <div class="lbl">Movies</div>
+        </div>
+        <div class="saved-circle tv">
+          <div class="circle">▶</div>
+          <div class="lbl">TV Shows</div>
+        </div>
+      </div>
+
+      <div class="tab-bar">
+        <div class="tab"><div class="icon">⌂</div><div class="label">Home</div></div>
+        <div class="tab"><div class="icon">◔</div><div class="label">For You</div></div>
+        <div class="tab"><div class="icon">⌑</div><div class="label">Saved</div></div>
+        <div class="tab"><div class="icon">➤</div><div class="label">Messages</div></div>
+        <div class="tab active"><div class="icon">◉</div><div class="label">Profile</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
